@@ -45,6 +45,8 @@ INSERT INTO livros (titulo, autor, ano, genero, quantidade) VALUES
 ('Grande Sertão: Veredas', 'João Guimarães Rosa', 1956, 'Romance', 1),
 ('Auto da Compadecida', 'Ariano Suassuna', 1955, 'Teatro', 2),
 ('A Moreninha', 'Joaquim Manuel de Macedo', 1844, 'Romance', 1);
+('Noites Brancas', 'Fiódor Dostoiévski', 1848, 'Ficção', 4),
+('A Metamorfose', 'Franz Kafka', 1915, 'Ficção', 5);
 
 INSERT INTO alunos (nome, turma) VALUES
 ('Ana Souza', '2A'), ('Bruno Lima', '2A'), ('Carla Mendes', '2B'), ('Diego Rocha', '2B'),
