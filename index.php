@@ -4,13 +4,13 @@ require 'conexao.php';
 
 $busca = $_GET['busca'] ?? '';  
 
-$sql = "SELECT l.id, l.titulo, l.autor, l.ano, l.genero, l.quantidade,
+$sql = "SELECT l.id, l.titulo, l.autor, l.ano, l.genero, l.quantidade, l.capa,
                COUNT(e.id) AS emprestados
         FROM livros l
         LEFT JOIN emprestimos e
                ON e.livro_id = l.id AND e.data_devolucao IS NULL
         WHERE l.titulo LIKE :busca OR l.autor LIKE :busca2
-        GROUP BY l.id, l.titulo, l.autor, l.ano, l.genero, l.quantidade
+        GROUP BY l.id, l.titulo, l.autor, l.ano, l.genero, l.quantidade, l.capa
         ORDER BY l.titulo";
 
 $consulta = $pdo->prepare($sql); 
@@ -40,7 +40,7 @@ require 'topo.php';
         </td>
         <td><?= e($livro['autor']) ?></td>
         <td><?= e($livro['ano']) ?></td>
-        <td><?= e($livro['gênero']) ?></td>
+        <td><?= e($livro['genero']) ?></td>
         <td><?= $livro['quantidade'] - $livro['emprestados'] ?> de <?= $livro['quantidade'] ?></td>
         <td class="acoes">
             <a href="editar.php?id=<?= $livro['id'] ?>">Editar</a>
@@ -54,29 +54,28 @@ require 'topo.php';
 </table>
 <p class="total"><?= count($livros) ?> livro(s) encontrado(s).</p>
 <?php require 'rodape.php'; ?>
+</table>
+
 <?php
-// Se o usuário clicou em um título, este bloco será executado
 if (isset($_GET['ver_capa'])) {
-    $id_livro = (int)$_GET['ver_capa'];
+    $id_livro = trim($_GET['ver_capa']);
     
-    // Procura o livro clicado dentro do seu array $livros para pegar a capa
     $livro_encontrado = null;
     foreach ($livros as $l) {
-        if ($l['id'] == $id_livro) {
+        if (strval($l['id']) === strval($id_livro)) {
             $livro_encontrado = $l;
             break;
         }
     }
 
     if ($livro_encontrado) {
-        // Define uma imagem padrão caso o livro não tenha capa cadastrada
-        $nome_capa = !empty($livro_encontrado['capa']) ? $livro_encontrado['capa'] : 'sem-capa.jpg';
+        // Correção da lógica que estava vazando como texto na tela
+        $nome_capa = (!empty($livro_encontrado['capa'])) ? $livro_encontrado['capa'] : 'sem-capa.jpg';
         ?>
-        <!-- Bloco que exibe a capa na tela -->
-        <div style="background: #1e1e1e; padding: 15px; border: 1px solid #333; text-align: center; margin-bottom: 20px; border-radius: 5px;">
+        <div style="background: #1e1e1e; padding: 15px; border: 1px solid #333; text-align: center; margin-top: 20px; border-radius: 5px; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto;">
             <a href="index.php" style="color: #ff4444; float: right; text-decoration: none; font-weight: bold;">[Fechar X]</a>
-            <h3 style="margin: 0 0 10px 0; color: #fff;"><?= e($livro_encontrado['titulo']) ?></h3>
-            <img src="capas/<?= $nome_capa ?>" alt="Capa" style="max-width: 180px; height: auto; border-radius: 4px;">
+            <h3 style="margin: 0 0 10px 0; color: #fff; text-align: center;"><?= e($livro_encontrado['titulo']) ?></h3>
+            <img src="capas/<?= $nome_capa ?>" alt="Capa" style="max-width: 180px; height: auto; border-radius: 4px; display: block; margin: 0 auto;">
         </div>
         <?php
     }

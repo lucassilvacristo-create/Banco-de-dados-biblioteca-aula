@@ -69,10 +69,10 @@ UPDATE livros SET capa = 'bras-cubas.jpg' WHERE titulo = 'Memórias Póstumas de
 UPDATE livros SET capa = 'auto-da-compadecida.jpg' WHERE titulo = 'Auto da Compadecida';
 UPDATE livros SET capa = 'cortico.jpg' WHERE titulo = 'O Cortiço';
 UPDATE livros SET capa = 'grande-sertao.jpg' WHERE titulo = 'Grande Sertão: Veredas';
-UPDATE livros SET capa = 'hora-da-estrela.jfif' WHERE titulo = 'A Hora da Estrela';
+UPDATE livros SET capa = 'hora-da-estrela.jpg' WHERE titulo = 'A Hora da Estrela';
 UPDATE livros SET capa = 'iracema.jpg' WHERE titulo = 'Iracema';
 UPDATE livros SET capa = 'moreninha.jpg' WHERE titulo = 'A Moreninha';
 UPDATE livros SET capa = 'o-alienista.jpg' WHERE titulo = 'O Alienista';
-UPDATE livros SET capa = 'quarto-de-despejo.jfif' WHERE titulo = 'Quarto de Despejo';
-UPDATE livros SET capa = 'vidas-secas.jfif' WHERE titulo = 'Vidas Secas';
-UPDATE livros SET capa = 'noites-brancas.jfif' WHERE titulo = 'Noites Brancas'
+UPDATE livros SET capa = 'quarto-de-despejo.jpg' WHERE titulo = 'Quarto de Despejo';
+UPDATE livros SET capa = 'vidas-seca.jpg' WHERE titulo = 'Vidas Secas';
+UPDATE livros SET capa = 'noites-brancas.jpg' WHERE titulo = 'Noites Brancas'
