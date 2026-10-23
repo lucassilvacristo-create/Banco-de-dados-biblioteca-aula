@@ -29,23 +29,56 @@ require 'topo.php';
 <?php endif; ?>
 
 <table>
-  <tr><th>Título</th><th>Autor</th><th>Ano</th><th>Gênero</th><th>Disponíveis</th><th></th></tr>
-  <?php foreach ($livros as $livro): ?>
+<tr><th>Título</th><th>Autor</th><th>Ano</th><th>Gênero</th><th>Disponíveis</th><th></th><th></th></tr>
+<?php foreach ($livros as $livro): ?>
     <tr>
-      <td><?= e($livro['titulo']) ?></td>
-      <td><?= e($livro['autor']) ?></td>
-      <td><?= e($livro['ano']) ?></td>
-      <td><?= e($livro['genero']) ?></td>
-      <td><?= $livro['quantidade'] - $livro['emprestados'] ?> de <?= $livro['quantidade'] ?></td>
-      <td class="acoes">
-        <a href="editar.php?id=<?= $livro['id'] ?>">Editar</a>
-        <form method="post" action="excluir.php" onsubmit="return confirm('Excluir este livro?')">
-          <input type="hidden" name="id" value="<?= $livro['id'] ?>">
-          <button class="perigo">Excluir</button>
-        </form>
-      </td>
+        <!-- MODIFICADO: O título agora é um link que envia o ID pela URL -->
+        <td>
+            <a href="index.php?ver_capa=<?= $livro['id'] ?>" style="color: inherit; text-decoration: underline;">
+                <?= e($livro['titulo']) ?>
+            </a>
+        </td>
+        <td><?= e($livro['autor']) ?></td>
+        <td><?= e($livro['ano']) ?></td>
+        <td><?= e($livro['gênero']) ?></td>
+        <td><?= $livro['quantidade'] - $livro['emprestados'] ?> de <?= $livro['quantidade'] ?></td>
+        <td class="acoes">
+            <a href="editar.php?id=<?= $livro['id'] ?>">Editar</a>
+            <form method="post" action="excluir.php" onsubmit="return confirm('Excluir este livro?')">
+                <input type="hidden" name="id" value="<?= $livro['id'] ?>">
+                <button class="perigo">Excluir</button>
+            </form>
+        </td>
     </tr>
-  <?php endforeach; ?>
+<?php endforeach; ?>
 </table>
 <p class="total"><?= count($livros) ?> livro(s) encontrado(s).</p>
 <?php require 'rodape.php'; ?>
+<?php
+// Se o usuário clicou em um título, este bloco será executado
+if (isset($_GET['ver_capa'])) {
+    $id_livro = (int)$_GET['ver_capa'];
+    
+    // Procura o livro clicado dentro do seu array $livros para pegar a capa
+    $livro_encontrado = null;
+    foreach ($livros as $l) {
+        if ($l['id'] == $id_livro) {
+            $livro_encontrado = $l;
+            break;
+        }
+    }
+
+    if ($livro_encontrado) {
+        // Define uma imagem padrão caso o livro não tenha capa cadastrada
+        $nome_capa = !empty($livro_encontrado['capa']) ? $livro_encontrado['capa'] : 'sem-capa.jpg';
+        ?>
+        <!-- Bloco que exibe a capa na tela -->
+        <div style="background: #1e1e1e; padding: 15px; border: 1px solid #333; text-align: center; margin-bottom: 20px; border-radius: 5px;">
+            <a href="index.php" style="color: #ff4444; float: right; text-decoration: none; font-weight: bold;">[Fechar X]</a>
+            <h3 style="margin: 0 0 10px 0; color: #fff;"><?= e($livro_encontrado['titulo']) ?></h3>
+            <img src="capas/<?= $nome_capa ?>" alt="Capa" style="max-width: 180px; height: auto; border-radius: 4px;">
+        </div>
+        <?php
+    }
+}
+?>

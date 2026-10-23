@@ -31,6 +31,8 @@ CREATE TABLE emprestimos (
   FOREIGN KEY (aluno_id) REFERENCES alunos(id)
 ) ENGINE=InnoDB;
 
+ALTER TABLE livros ADD COLUMN capa VARCHAR(255) DEFAULT 'sem-capa.jpg';
+
 -- Dados de exemplo
 INSERT INTO livros (titulo, autor, ano, genero, quantidade) VALUES
 ('Dom Casmurro', 'Machado de Assis', 1899, 'Romance', 3),
@@ -44,7 +46,7 @@ INSERT INTO livros (titulo, autor, ano, genero, quantidade) VALUES
 ('Quarto de Despejo', 'Carolina Maria de Jesus', 1960, 'Diário', 2),
 ('Grande Sertão: Veredas', 'João Guimarães Rosa', 1956, 'Romance', 1),
 ('Auto da Compadecida', 'Ariano Suassuna', 1955, 'Teatro', 2),
-('A Moreninha', 'Joaquim Manuel de Macedo', 1844, 'Romance', 1);
+('A Moreninha', 'Joaquim Manuel de Macedo', 1844, 'Romance', 1),
 ('Noites Brancas', 'Fiódor Dostoiévski', 1848, 'Ficção', 4),
 ('A Metamorfose', 'Franz Kafka', 1915, 'Ficção', 5);
 
@@ -59,3 +61,18 @@ INSERT INTO emprestimos (livro_id, aluno_id, data_emprestimo, data_devolucao) VA
 (9, 5, '2026-09-22', NULL),
 (7, 4, '2026-09-05', '2026-09-19'),
 (11, 7, '2026-10-01', NULL);
+
+UPDATE livros SET capa = 'metamorfose.jpg' WHERE titulo = 'A Metamorfose';
+UPDATE livros SET capa = 'capitaes-da-areia.jpg' WHERE titulo = 'Capitães da Areia';
+UPDATE livros SET capa = 'dom-casmurro.jpg' WHERE titulo = 'Dom Casmurro';
+UPDATE livros SET capa = 'bras-cubas.jpg' WHERE titulo = 'Memórias Póstumas de Brás Cubas';
+UPDATE livros SET capa = 'auto-da-compadecida.jpg' WHERE titulo = 'Auto da Compadecida';
+UPDATE livros SET capa = 'cortico.jpg' WHERE titulo = 'O Cortiço';
+UPDATE livros SET capa = 'grande-sertao.jpg' WHERE titulo = 'Grande Sertão: Veredas';
+UPDATE livros SET capa = 'hora-da-estrela.jfif' WHERE titulo = 'A Hora da Estrela';
+UPDATE livros SET capa = 'iracema.jpg' WHERE titulo = 'Iracema';
+UPDATE livros SET capa = 'moreninha.jpg' WHERE titulo = 'A Moreninha';
+UPDATE livros SET capa = 'o-alienista.jpg' WHERE titulo = 'O Alienista';
+UPDATE livros SET capa = 'quarto-de-despejo.jfif' WHERE titulo = 'Quarto de Despejo';
+UPDATE livros SET capa = 'vidas-secas.jfif' WHERE titulo = 'Vidas Secas';
+UPDATE livros SET capa = 'noites-brancas.jfif' WHERE titulo = 'Noites Brancas'
